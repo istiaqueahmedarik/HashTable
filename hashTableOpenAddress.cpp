@@ -139,7 +139,7 @@ public:
                 cout << i << "-> <Deleted>" << endl;
                 continue;
             }
-            cout << table[i]->getKey() << "->" << table[i]->getVal() << endl;
+            cout << i << "-->" << table[i]->getKey() << "->" << table[i]->getVal() << endl;
         }
     }
     ~HashTable()
