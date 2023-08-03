@@ -48,7 +48,6 @@ public:
     {
         return max(0LL, p % mx);
     }
-    // insert function mixed probing method and chain method
     void insert(Data<A, B> *data)
     {
         if (data == NULL)
@@ -60,7 +59,6 @@ public:
             table[index] = data;
     }
 
-    // insert in table if clash resolve it with chaining method
     void insert_in_chain(Data<A, B> *data, int index)
     {
         if (data == NULL)
@@ -73,7 +71,6 @@ public:
         curr->next = data;
     }
 
-    // find key
     Data<A, B> *find(A a)
     {
         int ind = Hash(a);
@@ -102,7 +99,6 @@ public:
         }
         return NULL;
     }
-    // delete
     bool erase(A a)
     {
         int ind = Hash(a);

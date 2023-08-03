@@ -49,7 +49,6 @@ public:
     {
         return max(0LL, p % mx);
     }
-    // insert function mixed probing method and chain method
     bool insert(Data<A, B> *data)
     {
         if (data == NULL)
@@ -60,7 +59,6 @@ public:
         table[index] = data;
     }
 
-    // insert in probing method
     bool insert_in_OpenAddress(Data<A, B> *data, int index)
     {
         if (data == NULL)
