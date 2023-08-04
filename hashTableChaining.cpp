@@ -28,7 +28,7 @@ class HashTable
     int sz;
 
 public:
-    HashTable(long long size = 20)
+    HashTable(long long size = 10)
     {
         table = new Data<A, B> *[mx = size];
         for (long long int i = 0; i < size; i++)
@@ -54,8 +54,10 @@ public:
         if (table[index] != NULL)
             insert_in_chain(data, index);
         else
+        {
             table[index] = data;
-        sz++;
+            sz++;
+        }
     }
 
     void insert_in_chain(Data<A, B> *data, int index)
@@ -96,7 +98,7 @@ public:
     bool erase(A a)
     {
         int ind = Hash(a);
-        if (table[ind] != NULL && table[ind]->getKey() == a)
+        if (table[ind] != NULL)
         {
             Data<A, B> *curr = table[ind];
             Data<A, B> *prev = NULL;
