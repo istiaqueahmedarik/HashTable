@@ -92,11 +92,15 @@ void _print(T t, V... v)
 // template <typename T>
 // using o_multiset_g = tree<T, null_type, greater_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-int kmp(string s, string pat)
+vector<int> kmp(string s, string pat)
 {
+
+    int prevLPS = 0, curr = 1;
+    string tempPat = pat;
+    pat = pat + '.' + s;
     int lps[pat.size()];
     memset(lps, 0, sizeof(lps));
-    int prevLPS = 0, curr = 1;
+    // create lps
     while (curr < pat.size())
         if (pat[prevLPS] == pat[curr])
             lps[curr++] = prevLPS++ + 1;
@@ -104,20 +108,33 @@ int kmp(string s, string pat)
             lps[curr++] = 0;
         else
             prevLPS = lps[prevLPS - 1];
-
-    int strPtr = 0, patPtr = 0;
-    while (strPtr < s.size() and patPtr != pat.size())
-        if (s[strPtr] == pat[patPtr])
-            strPtr++, patPtr++;
-        else if (!patPtr)
-            strPtr++;
-        else
-            patPtr = lps[patPtr - 1];
-    return patPtr == pat.size() ? strPtr - pat.size() : -1;
+    vector<int> ans;
+    for (int i = 0; i < pat.size(); i++)
+    {
+        if (lps[i] == tempPat.size())
+        {
+            ans.push_back(i - tempPat.size() - tempPat.size());
+        }
+    }
+    return ans;
 }
 
 void solve()
 {
+    string s, pat;
+    cin >> s >> pat;
+    vector<int> ans = kmp(s, pat);
+    if (ans.size() == 0)
+        cout << "Not Found" << endl;
+    else
+    {
+        cout << ans.size() << endl;
+        for (auto i : ans)
+        {
+            cout << i + 1 << " ";
+        }
+        cout << endl;
+    }
 }
 
 auto main() -> int32_t
