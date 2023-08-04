@@ -24,7 +24,7 @@ class HashTable
 {
     Data<A, B> **table;
     long long mx;
-    Data<A, B> *deleted;
+    Data<A, B> *DELETED;
     int sz;
 
 public:
@@ -34,7 +34,7 @@ public:
         mx = size;
         for (long long int i = 0; i < size; i++)
             table[i] = NULL;
-        deleted = new Data<A, B>;
+        DELETED = new Data<A, B>;
         sz = 0;
     }
     unsigned long long Hash(const string &s)
@@ -56,7 +56,7 @@ public:
         if (data == NULL)
             return false;
         int index = Hash(data->getKey());
-        if (table[index] != NULL && table[index] != deleted)
+        if (table[index] != NULL && table[index] != DELETED)
             return insert_in_OpenAddress(data, index);
         table[index] = data;
         sz++;
@@ -86,7 +86,7 @@ public:
             int nextPlace = (i + ind) % mx;
             if (table[nextPlace] == NULL)
                 return NULL;
-            if (table[nextPlace] == deleted)
+            if (table[nextPlace] == DELETED)
                 continue;
             if (table[nextPlace]->getKey() == a)
                 return table[nextPlace];
@@ -101,7 +101,7 @@ public:
             int nextPlace = (i + ind) % mx;
             if (table[nextPlace] == NULL)
                 return NULL;
-            if (table[nextPlace] == deleted)
+            if (table[nextPlace] == DELETED)
                 continue;
             if (table[nextPlace]->getKey() == a)
                 return table[nextPlace];
@@ -117,12 +117,12 @@ public:
             int nextPlace = (i + ind) % mx;
             if (table[nextPlace] == NULL)
                 return NULL;
-            if (table[nextPlace] == deleted)
+            if (table[nextPlace] == DELETED)
                 continue;
             if (table[nextPlace]->getKey() == a)
             {
                 Data<A, B> *temp = table[nextPlace];
-                table[nextPlace] = deleted;
+                table[nextPlace] = DELETED;
                 sz--;
                 return temp;
             }
@@ -138,9 +138,9 @@ public:
                 cout << i << "-> <Empty>" << endl;
                 continue;
             }
-            if (table[i] == deleted)
+            if (table[i] == DELETED)
             {
-                cout << i << "-> <Deleted>" << endl;
+                cout << i << "-> <DELETED>" << endl;
                 continue;
             }
             cout << i << "-->" << table[i]->getKey() << "->" << table[i]->getVal() << endl;
@@ -150,7 +150,7 @@ public:
     ~HashTable()
     {
         delete[] table;
-        delete deleted;
+        delete DELETED;
     }
 };
 
@@ -185,7 +185,7 @@ int main()
             cin >> s;
             if (mp.erase(s) != NULL)
             {
-                cout << "Deleted" << endl;
+                cout << "DELETED" << endl;
             }
             else
                 cout << "Not Found" << endl;
