@@ -30,8 +30,7 @@ class HashTable
 public:
     HashTable(long long size = 20)
     {
-        table = new Data<A, B> *[size];
-        mx = size;
+        table = new Data<A, B> *[mx = size];
         for (long long int i = 0; i < size; i++)
             table[i] = NULL;
         sz = 0;
@@ -46,10 +45,7 @@ public:
         }
         return ret;
     }
-    unsigned long long Hash(long long p)
-    {
-        return max(0LL, p % mx);
-    }
+    unsigned long long Hash(long long p) { return max(0LL, p % mx); }
     void insert(Data<A, B> *data)
     {
         if (data == NULL)
@@ -77,8 +73,6 @@ public:
     {
         int ind = Hash(a);
         Data<A, B> *curr = table[ind];
-        if (curr == NULL)
-            return NULL;
         while (curr)
         {
             if (curr->getKey() == a)
@@ -91,8 +85,6 @@ public:
     {
         int ind = Hash(a);
         Data<A, B> *curr = table[ind];
-        if (curr == NULL)
-            return NULL;
         while (curr)
         {
             if (curr->getKey() == a)
@@ -108,7 +100,7 @@ public:
         {
             Data<A, B> *curr = table[ind];
             Data<A, B> *prev = NULL;
-            while (curr != NULL && curr->getKey() != a)
+            while (curr && curr->getKey() != a)
             {
                 prev = curr;
                 curr = curr->next;
@@ -135,7 +127,7 @@ public:
     {
         Data<A, B> *curr = table[index];
         cout << index << "-->";
-        while (curr->next != NULL)
+        while (curr->next)
         {
             cout << "(" << curr->getKey() << "<->" << curr->getVal() << ")->";
             curr = curr->next;
@@ -198,12 +190,8 @@ int main()
                 cout << "Not Found" << endl;
         }
         else if (choice == 4)
-        {
             cout << "Size " << mp.getSize() << endl;
-        }
         else if (choice == 5)
-        {
             mp.Print();
-        }
     }
 }
