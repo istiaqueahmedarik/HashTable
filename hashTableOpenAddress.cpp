@@ -25,6 +25,7 @@ class HashTable
     Data<A, B> **table;
     long long mx;
     Data<A, B> *deleted;
+    int sz;
 
 public:
     HashTable(long long size = 20)
@@ -34,6 +35,7 @@ public:
         for (long long int i = 0; i < size; i++)
             table[i] = NULL;
         deleted = new Data<A, B>;
+        sz = 0;
     }
     unsigned long long Hash(const string &s)
     {
@@ -57,8 +59,8 @@ public:
         if (table[index] != NULL && table[index] != deleted)
             return insert_in_OpenAddress(data, index);
         table[index] = data;
+        sz++;
     }
-
     bool insert_in_OpenAddress(Data<A, B> *data, int index)
     {
         if (data == NULL)
@@ -69,6 +71,7 @@ public:
             if (table[nextPlace] == NULL)
             {
                 table[nextPlace] = data;
+                sz++;
                 return true;
             }
         }
@@ -120,6 +123,7 @@ public:
             {
                 Data<A, B> *temp = table[nextPlace];
                 table[nextPlace] = deleted;
+                sz--;
                 return temp;
             }
         }
@@ -142,6 +146,7 @@ public:
             cout << i << "-->" << table[i]->getKey() << "->" << table[i]->getVal() << endl;
         }
     }
+    int getSize() { return sz; }
     ~HashTable()
     {
         delete[] table;
@@ -154,7 +159,7 @@ int main()
     HashTable<string, int> mp;
     while (1)
     {
-        cout << "1. Insert\n2. Delete\n3. Find\n4. Print\n\nChoice: ";
+        cout << "1. Insert\n2. Delete\n3. Find\n4. Size\n5. Print\n\nChoice: ";
         int choice;
         cin >> choice;
         if (choice == 1)
@@ -196,6 +201,10 @@ int main()
                 cout << "Not Found" << endl;
         }
         else if (choice == 4)
+        {
+            cout << "Size: " << mp.getSize() << endl;
+        }
+        else if (choice == 5)
         {
             mp.Print();
         }
