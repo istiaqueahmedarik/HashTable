@@ -92,8 +92,13 @@ void _print(T t, V... v)
 // template <typename T>
 // using o_multiset_g = tree<T, null_type, greater_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-vector<int> kmp(string s, string pat)
+inline void solve()
 {
+    string s;
+    cin >> s;
+    string st = s;
+    reverse(s.begin(), s.end());
+    string pat = st + '#' + s;
     int lps[pat.size()];
     memset(lps, 0, sizeof(lps));
     int prevLPS = 0, curr = 1;
@@ -104,34 +109,7 @@ vector<int> kmp(string s, string pat)
             lps[curr++] = 0;
         else
             prevLPS = lps[prevLPS - 1];
-
-    int strPtr = 0, patPtr = 0;
-    int c = 0;
-    vector<int> ans;
-    while (strPtr < s.size())
-    {
-        if (s[strPtr] == pat[patPtr])
-            strPtr++, patPtr++;
-        else if (!patPtr)
-            strPtr++;
-        else
-            patPtr = lps[patPtr - 1];
-        if (patPtr == pat.size())
-        {
-            c++;
-            ans.push_back(strPtr - pat.size());
-            patPtr = lps[patPtr - 1];
-        }
-    }
-    return ans;
-}
-
-inline void solve()
-{
-    string s, pat;
-    cin >> s >> pat;
-    vector<int> ans = kmp(s, pat);
-    cout << ans.size() << endl;
+    cout << s.size() * 2 - lps[pat.size() - 1] << endl;
 }
 
 auto main() -> int32_t
@@ -141,6 +119,7 @@ auto main() -> int32_t
     cin >> t;
     while (t--)
     {
+        cout << "Case " << cs++ << ": ";
         solve();
     }
 

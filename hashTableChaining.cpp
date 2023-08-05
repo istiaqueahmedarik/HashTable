@@ -85,15 +85,7 @@ public:
     }
     Data<A, B> *operator[](A a)
     {
-        int ind = Hash(a);
-        Data<A, B> *curr = table[ind];
-        while (curr)
-        {
-            if (curr->getKey() == a)
-                return curr;
-            curr = curr->next;
-        }
-        return NULL;
+        return find(a);
     }
     bool erase(A a)
     {

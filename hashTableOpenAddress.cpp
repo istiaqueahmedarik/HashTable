@@ -95,18 +95,7 @@ public:
     }
     Data<A, B> *operator[](A a)
     {
-        int ind = Hash(a);
-        for (int i = 0; i < mx; i++)
-        {
-            int nextPlace = (i + ind) % mx;
-            if (table[nextPlace] == NULL)
-                return NULL;
-            if (table[nextPlace] == DELETED)
-                continue;
-            if (table[nextPlace]->getKey() == a)
-                return table[nextPlace];
-        }
-        return NULL;
+        return find(a);
     }
     // delete
     Data<A, B> *erase(A a)

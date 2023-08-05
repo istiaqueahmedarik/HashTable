@@ -94,13 +94,9 @@ void _print(T t, V... v)
 
 vector<int> kmp(string s, string pat)
 {
-
-    int prevLPS = 0, curr = 1;
-    string tempPat = pat;
-    pat = pat + '.' + s;
     int lps[pat.size()];
     memset(lps, 0, sizeof(lps));
-    // create lps
+    int prevLPS = 0, curr = 1;
     while (curr < pat.size())
         if (pat[prevLPS] == pat[curr])
             lps[curr++] = prevLPS++ + 1;
@@ -108,33 +104,42 @@ vector<int> kmp(string s, string pat)
             lps[curr++] = 0;
         else
             prevLPS = lps[prevLPS - 1];
+
+    int strPtr = 0, patPtr = 0;
+    int c = 0;
     vector<int> ans;
-    for (int i = 0; i < pat.size(); i++)
+    while (strPtr < s.size())
     {
-        if (lps[i] == tempPat.size())
+        if (s[strPtr] == pat[patPtr])
+            strPtr++, patPtr++;
+        else if (!patPtr)
+            strPtr++;
+        else
+            patPtr = lps[patPtr - 1];
+        if (patPtr == pat.size())
         {
-            ans.push_back(i - tempPat.size() - tempPat.size());
+            c++;
+            ans.push_back(strPtr - pat.size());
+            patPtr = lps[patPtr - 1];
         }
     }
     return ans;
 }
 
-void solve()
+inline void solve()
 {
     string s, pat;
     cin >> s >> pat;
     vector<int> ans = kmp(s, pat);
-    if (ans.size() == 0)
-        cout << "Not Found" << endl;
-    else
+    if (ans.size())
     {
         cout << ans.size() << endl;
         for (auto i : ans)
-        {
             cout << i + 1 << " ";
-        }
         cout << endl;
     }
+    else
+        cout << "Not Found\n";
 }
 
 auto main() -> int32_t
