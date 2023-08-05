@@ -19,23 +19,25 @@ int main()
     cin >> s >> d;
     queue<int> q;
     q.push(s);
-    visited[s] = 1;
     parent[s] = -1;
+    visited[s] = 1;
+
     while (!q.empty())
     {
         int node = q.front();
-        visited[node] = 1;
         q.pop();
         for (auto i : adjList[node])
         {
             if (!visited[i])
             {
+                visited[i] = 1;
                 q.push(i);
                 parent[i] = node;
                 dist[i] = dist[node] + 1;
             }
         }
     }
+    cout << endl;
     cout << dist[d] << endl;
     stack<int> st;
     while (parent[d] != -1)
