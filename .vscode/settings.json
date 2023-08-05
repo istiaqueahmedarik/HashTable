@@ -57,6 +57,7 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "files.associations": {
     "*html": "html",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "ostream": "cpp"
   }
 }
